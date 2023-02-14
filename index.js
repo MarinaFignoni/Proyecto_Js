@@ -1,4 +1,3 @@
-
 alert("Bienvenido a MF Cambio, conversor de Divisas");
 
 // Map tasas de cambio
@@ -11,31 +10,40 @@ tasasDeCambio.set("real", { tasa: 83, simbolo: 'R$', nombre: "Real" });
 // Array monedas aceptadas
 const monedasAceptadas = ["usd", "euro", "real"];
 
-// Función  calcular 
-function cotizacion(monto, moneda) {
-    if (tasasDeCambio.has(moneda)) {
-        let tasa = tasasDeCambio.get(moneda);
-        return `${monto * tasa.tasa}`;
-    } else {
-        return "Moneda no aceptada";
-    }
-}
 
+function cotizacion(monto, moneda) {
+
+    if (moneda == "usd") {
+        let cotizacion = tasasDeCambio.get(moneda);
+        return `${monto * cotizacion.tasa}`;
+    }
+    else if (moneda == "euro") {
+        let cotizacion = tasasDeCambio.get(moneda);
+        return `${monto * cotizacion.tasa}`;
+    }
+
+    else if (moneda == "real") {
+        let cotizacion = tasasDeCambio.get(moneda);
+        return `${monto * cotizacion.tasa}`;
+    }
+
+
+}
 
 let cotizar = "si";
 
 while (cotizar === "si") {
     // Pedir moneda y monto a cotizar
-    let moneda = prompt("Elige la moneda que quieres cotizar: usd, euro, real");
-    moneda = moneda.toLowerCase();
-    while (moneda != "usd" && moneda != "euro" && moneda != "real") {
+    let moneda = prompt("Elige la moneda que quieres cotizar: usd, euro, real").toLowerCase();
+
+    while (!monedasAceptadas.includes(moneda)) {
         alert("Ingresa una moneda valida");
-        moneda = prompt("Elige la moneda que quieres cotizar: usd, euro, real");
+        moneda = prompt("Elige la moneda que quieres cotizar: usd, euro, real").toLowerCase();
     }
 
     let monto = prompt("Ingresa el monto:");
-    while (isNaN(monto)) {
-        alert("Debe ingresar un monto en numeros");
+    while (isNaN(monto) || (monto) <= 0) {
+        alert("Debe ingresar un monto en numeros y mayor a 0");
         monto = prompt("Ingresa el monto");
     }
     monto = parseInt(monto);
@@ -50,11 +58,10 @@ while (cotizar === "si") {
     console.log("");
 
     // Pregunta si quiere cotizar de nuevo
-    cotizar = prompt("¿Quieres cotizar de nuevo? si/no");
-    cotizar = cotizar.toLowerCase();
+    cotizar = prompt("¿Quieres cotizar de nuevo? si/no").toLowerCase();
     while (cotizar != "si" && cotizar != "no") {
         alert("Ingresa una opción valida");
-        cotizar = prompt("¿Quieres cotizar de nuevo? si/no");
+        cotizar = prompt("¿Quieres cotizar de nuevo? si/no").toLowerCase();
     }
 }
 
