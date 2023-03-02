@@ -5,14 +5,50 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MF Cambio </title>
 
+    <link rel="stylesheet" href="./css.css">
+    <title>Conversor de moneda</title>
 </head>
 
 <body>
-    <h1>MF Cambio</h1>
-    <h2>Conversor de divisas</h2>
-    <script src="index.js"> </script>
+    <header>
+        <img class="banner" src="./Assets/trading-divisas.jpg" alt="">
+    </header>
+    <main>
+
+        <h1>Conversor de moneda</h1>
+
+        <div class="form">
+            <label for="moneda">Elije la moneda que quieras convertir:</label>
+            <select id="moneda">
+                <option value="usd">Dólar Estadounidense</option>
+                <option value="euro">Euro</option>
+                <option value="real">Real Brasileño</option>
+                <option value="gbp">Libra Esterlina</option>
+            </select>
+        </div>
+        <div class="form">
+            <label for="monto">Monto:</label>
+            <input type="number" id="monto" />
+        </div>
+        <button id="cotizar">Cotizar</button>
+        <div id="resultado"></div>
+        <div id="error"></div>
+
+        <table id="historial">
+            <thead>
+                <tr>
+
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <br>
+        <button id="borrarHistorial">Borrar historial completo</button>
+
+    </main>
+    <script src="./index.js"></script>
 </body>
 
 </html>
