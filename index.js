@@ -63,10 +63,10 @@ cotizarButton.addEventListener("click", () => {
     guardarDatos();
 
     resultadoDiv.innerHTML = `
-      <p>Nueva cotización:</p>
-      <p>Monto a cotizar: ${tasa.simbolo}${monto}</p>
-      <p>Moneda: ${tasa.nombre}</p>
-      <p>Total en pesos: $${total}</p>
+<p>Nueva cotización:</p>
+<p>Monto a cotizar: ${tasa.simbolo}${monto}</p>
+<p>Moneda: ${tasa.nombre}</p>
+<p>Total en pesos: $${total}</p>
     `;
 
     errorDiv.innerHTML = "";
@@ -82,8 +82,7 @@ function actualizarHistorial() {
         <p>Cotización anterior:</p>
         <p>Monto cotizado: ${cotizacion.monto} ${cotizacion.moneda}</p>
         <p>Total en pesos: $${cotizacion.total}</p>
-        <p>Fecha: ${cotizacion.fecha.toLocaleString()}</p>
-      `;
+        <p>Fecha: ${cotizacion.fecha.toLocaleString()}</p>`;
         const borrarHistorialButton = document.getElementById("borrarHistorial");
         borrarHistorialButton.addEventListener("click", () => {
             cotizaciones.length = 0;
