@@ -32,7 +32,7 @@ cotizarButton.addEventListener("click", () => {
     const monto = parseInt(document.getElementById("monto").value);
 
     if (isNaN(monto) || monto <= 0) {
-        errorDiv.innerText = "Monto no válido, el monto debe ser un número positivo";
+        errorDiv.innerText = "Monto no válido, el monto debe ser un número y positivo";
         resultadoDiv.innerHTML = "";
         return;
     }
