@@ -1,3 +1,4 @@
+// Array de objetos
 const tasasDeCambio = [
     { moneda: "usd", tasa: 380, simbolo: "$", nombre: "Dólar Estadounidense" },
     { moneda: "euro", tasa: 410, simbolo: "€", nombre: "Euro" },
@@ -5,6 +6,7 @@ const tasasDeCambio = [
     { moneda: "gbp", tasa: 450, simbolo: "£", nombre: "Libra Esterlina" },
 ];
 
+// Array monedas aceptadas
 const monedasAceptadas = ["usd", "euro", "real", "gbp"];
 
 const cotizarButton = document.getElementById("cotizar");
@@ -13,6 +15,7 @@ const errorDiv = document.getElementById("error");
 const historialDiv = document.getElementById("historial");
 const cotizaciones = [];
 
+//storage&json
 function guardarDatos() {
     localStorage.setItem("cotizaciones", JSON.stringify(cotizaciones));
 }
@@ -25,6 +28,8 @@ function cargarDatos() {
     }
 }
 
+//Monto a cotizar
+
 cargarDatos();
 
 cotizarButton.addEventListener("click", () => {
@@ -32,7 +37,7 @@ cotizarButton.addEventListener("click", () => {
     const monto = parseInt(document.getElementById("monto").value);
 
     if (isNaN(monto) || monto <= 0) {
-        errorDiv.innerText = "Monto no válido, el monto debe ser un número positivo";
+        errorDiv.innerText = "Monto no válido, ingrese un número positivo";
         resultadoDiv.innerHTML = "";
         return;
     }
@@ -46,7 +51,7 @@ cotizarButton.addEventListener("click", () => {
     const tasa = tasasDeCambio.find((tasa) => tasa.moneda === moneda);
 
     if (!tasa) {
-        errorDiv.innerText = "Ha ocurrido un error. Inténtalo de nuevo.";
+        errorDiv.innerText = "Ha ocurrido un error. Intenta nuevamente";
         resultadoDiv.innerHTML = "";
         return;
     }
@@ -62,6 +67,7 @@ cotizarButton.addEventListener("click", () => {
 
     guardarDatos();
 
+    //Resultado
     resultadoDiv.innerHTML = `
 <p>Nueva cotización:</p>
 <p>Monto a cotizar: ${tasa.simbolo}${monto}</p>
@@ -74,6 +80,7 @@ cotizarButton.addEventListener("click", () => {
     actualizarHistorial();
 });
 
+// Historial
 function actualizarHistorial() {
     historialDiv.innerHTML = "";
     cotizaciones.forEach((cotizacion, index) => {
@@ -84,13 +91,35 @@ function actualizarHistorial() {
         <p>Total en pesos: $${cotizacion.total}</p>
         <p>Fecha: ${cotizacion.fecha.toLocaleString()}</p>`;
         const borrarHistorialButton = document.getElementById("borrarHistorial");
+
+        //Librerias : Cartel de eliminar historial
         borrarHistorialButton.addEventListener("click", () => {
-            cotizaciones.length = 0;
-            actualizarHistorial();
+            Swal.fire({
+                title: '¿Estás seguro de borrar el historial?',
+                text: "No podrás recuperarlo",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, borrar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    cotizaciones.length = 0;
+                    guardarDatos();
+                    actualizarHistorial();
+                    Swal.fire(
+                        'Eliminado',
+                        'El historial fue eliminado',
+                        'success'
+                    )
+                }
+            })
+
+
         });
 
         const limpiarBtn = document.createElement("button");
-        limpiarBtn.innerText = "Limpiar";
+        limpiarBtn.innerText = "Eliminar";
         limpiarBtn.addEventListener("click", () => {
             cotizaciones.splice(index, 1);
             guardarDatos();
@@ -103,3 +132,21 @@ function actualizarHistorial() {
 }
 
 actualizarHistorial();
+
+//fetch
+
+function mostrar_posicion(posicion) {
+    let lat = posicion.coords.latitude;
+    let long = posicion.coords.longitude;
+    let key = "e16c76ddf0b4cdffb0e02afcbc07672e";
+
+    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${key}&units=metric&lang=es`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("api_clima").innerHTML = `<p>${data.name}</p>
+                                    <p>Temp:${data.main.temp}</p>
+                                    <p>Clima:${data.weather[0].description}</p>`
+        })
+}
+
+navigator.geolocation.getCurrentPosition(mostrar_posicion)

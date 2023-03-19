@@ -4,23 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="./css.css">
     <title>Conversor de moneda</title>
 </head>
 <body>
     <header>
+        <div>
         <img class="banner" src="./Assets/trading-divisas.jpg" alt="">
+        <h1>Conversor de monedas</h1>
+    </div>
     </header>
     <main>
-        <h1>Conversor de moneda</h1>
+        <div class="contenedor_cotizaciones">
         <div class="form">
-            <label for="moneda">Elije la moneda que quieras convertir:</label>
+            <label for="moneda">Moneda:</label>
             <select id="moneda">
-                <option value="usd">Dólar Estadounidense</option>
+                <option value="usd">Dólar</option>
                 <option value="euro">Euro</option>
-                <option value="real">Real Brasileño</option>
-                <option value="gbp">Libra Esterlina</option>
+                <option value="real">Real</option>
+                <option value="gbp">Libra</option>
             </select>
         </div>
         <div class="form">
@@ -28,6 +31,8 @@
             <input type="number" id="monto" />
         </div>
         <button id="cotizar">Cotizar</button>
+    </div>
+    <div class="contenedor_resultados"> 
         <div id="resultado"></div>
         <div id="error"></div>
         <table id="historial">
@@ -39,8 +44,13 @@
             </tbody>
         </table>
         <br>
-        <button id="borrarHistorial">Borrar historial completo</button>
+    </div>
+        <button id="borrarHistorial">Borrar historial</button>
     </main>
+    <footer>
+        <div id="api_clima"></div>
+        <p> © Conversor de divisas - 2022 todos los derechos reservados.</footer></p>
+    <script src="sweetalert2.all.min.js"></script>
     <script src="./index.js"></script>
 </body>
 </html>
