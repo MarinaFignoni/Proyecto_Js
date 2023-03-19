@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./Assets/icon.png">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="./css.css">
     <title>Conversor de moneda</title>
@@ -16,6 +17,7 @@
     </div>
     </header>
     <main>
+            <!--- Cotizaciones -->
         <div class="contenedor_cotizaciones">
         <div class="form">
             <label for="moneda">Moneda:</label>
@@ -32,9 +34,12 @@
         </div>
         <button id="cotizar">Cotizar</button>
     </div>
+        <!--- Resultados -->
     <div class="contenedor_resultados"> 
         <div id="resultado"></div>
         <div id="error"></div>
+            <!--- Historial -->
+            <h2>Historial de cotizaciones</h2>
         <table id="historial">
             <thead>
                 <tr>
@@ -45,11 +50,16 @@
         </table>
         <br>
     </div>
+
         <button id="borrarHistorial">Borrar historial</button>
     </main>
     <footer>
-        <div id="api_clima"></div>
-        <p> © Conversor de divisas - 2022 todos los derechos reservados.</footer></p>
+        <div class="clima">
+        <img src="./Assets/clima-img.png" alt="" width="30%" >
+        <p>Ubicacion</p>
+        <div id="api_clima"> </div>
+    </div>
+        <p> © Conversor de divisas - 2023 todos los derechos reservados.</footer></p>
     <script src="sweetalert2.all.min.js"></script>
     <script src="./index.js"></script>
 </body>

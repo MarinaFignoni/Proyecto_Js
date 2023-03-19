@@ -1,15 +1,15 @@
 // Array de objetos
 const tasasDeCambio = [
-    { moneda: "usd", tasa: 380, simbolo: "$", nombre: "Dólar" },
-    { moneda: "euro", tasa: 410, simbolo: "€", nombre: "Euro" },
-    { moneda: "real", tasa: 83, simbolo: "R$", nombre: "Real" },
-    { moneda: "gbp", tasa: 450, simbolo: "£", nombre: "Libra" },
+    { moneda: "usd", tasa: 380, simbolo: "$", nombre: "Dólares" },
+    { moneda: "euro", tasa: 410, simbolo: "€", nombre: "Euros" },
+    { moneda: "real", tasa: 83, simbolo: "R$", nombre: "Reales" },
+    { moneda: "gbp", tasa: 450, simbolo: "£", nombre: "Libras" },
 ];
 
 // Array monedas aceptadas
 const monedasAceptadas = ["usd", "euro", "real", "gbp"];
 
-const cotizarButton = document.getElementById("cotizar");
+const cotizarBtn = document.getElementById("cotizar");
 const resultadoDiv = document.getElementById("resultado");
 const errorDiv = document.getElementById("error");
 const historialDiv = document.getElementById("historial");
@@ -24,7 +24,7 @@ function cargarDatos() {
     const data = localStorage.getItem("cotizaciones");
     if (data) {
         cotizaciones.push(...JSON.parse(data));
-        actualizarHistorial();
+        actualizarHist();
     }
 }
 
@@ -32,12 +32,12 @@ function cargarDatos() {
 
 cargarDatos();
 
-cotizarButton.addEventListener("click", () => {
+cotizarBtn.addEventListener("click", () => {
     const moneda = document.getElementById("moneda").value;
     const monto = parseInt(document.getElementById("monto").value);
 
     if (isNaN(monto) || monto <= 0) {
-        errorDiv.innerText = "Monto no válido, ingrese un número positivo";
+        errorDiv.innerText = "Monto inválido";
         resultadoDiv.innerHTML = "";
         return;
     }
@@ -69,7 +69,7 @@ cotizarButton.addEventListener("click", () => {
 
     //Resultado
     resultadoDiv.innerHTML = `
-<p>Nueva cotización:</p>
+<p>Cotización</p>
 <p>Monto a cotizar: ${tasa.simbolo}${monto}</p>
 <p>Moneda: ${tasa.nombre}</p>
 <p>Total en pesos: $${total}</p>
@@ -77,36 +77,37 @@ cotizarButton.addEventListener("click", () => {
 
     errorDiv.innerHTML = "";
 
-    actualizarHistorial();
+    actualizarHist();
 });
 
 // Historial
-function actualizarHistorial() {
+function actualizarHist() {
     historialDiv.innerHTML = "";
     cotizaciones.forEach((cotizacion, index) => {
         const cotizacionDiv = document.createElement("div");
+        cotizacionDiv.style.marginTop = "20px"
         cotizacionDiv.innerHTML = `
-        <p>Cotización anterior:</p>
+        <p>Cotización anterior</p>
         <p>Monto cotizado: ${cotizacion.monto} ${cotizacion.moneda}</p>
         <p>Total en pesos: $${cotizacion.total}</p>
         <p>Fecha: ${cotizacion.fecha.toLocaleString()}</p>`;
-        const borrarHistorialButton = document.getElementById("borrarHistorial");
+        const borrarHistorialBtn = document.getElementById("borrarHistorial");
 
         //Librerias : Cartel de eliminar historial
-        borrarHistorialButton.addEventListener("click", () => {
+        borrarHistorialBtn.addEventListener("click", () => {
             Swal.fire({
                 title: '¿Estás seguro de borrar el historial?',
                 text: "No podrás recuperarlo",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
+                confirmButtonColor: 'green',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Si, borrar'
             }).then((result) => {
                 if (result.isConfirmed) {
                     cotizaciones.length = 0;
                     guardarDatos();
-                    actualizarHistorial();
+                    actualizarHist();
                     Swal.fire(
                         'Eliminado',
                         'El historial fue eliminado',
@@ -123,7 +124,7 @@ function actualizarHistorial() {
         limpiarBtn.addEventListener("click", () => {
             cotizaciones.splice(index, 1);
             guardarDatos();
-            actualizarHistorial();
+            actualizarHist();
         });
 
         cotizacionDiv.appendChild(limpiarBtn);
@@ -131,9 +132,9 @@ function actualizarHistorial() {
     });
 }
 
-actualizarHistorial();
+actualizarHist();
 
-//fetch
+//fetch-api
 
 function mostrar_posicion(posicion) {
     let lat = posicion.coords.latitude;
