@@ -1,9 +1,9 @@
 // Array de objetos
 const tasasDeCambio = [
-    { moneda: "usd", tasa: 380, simbolo: "$", nombre: "Dólar Estadounidense" },
+    { moneda: "usd", tasa: 380, simbolo: "$", nombre: "Dólar" },
     { moneda: "euro", tasa: 410, simbolo: "€", nombre: "Euro" },
-    { moneda: "real", tasa: 83, simbolo: "R$", nombre: "Real Brasileño" },
-    { moneda: "gbp", tasa: 450, simbolo: "£", nombre: "Libra Esterlina" },
+    { moneda: "real", tasa: 83, simbolo: "R$", nombre: "Real" },
+    { moneda: "gbp", tasa: 450, simbolo: "£", nombre: "Libra" },
 ];
 
 // Array monedas aceptadas
